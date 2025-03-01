@@ -1,0 +1,24 @@
+package components
+
+templ ImagesList(repositories []string) {
+	<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+		if len(repositories) == 0 {
+			<div class="col-span-full p-6 bg-neutral-100 dark:bg-neutral-800 rounded-lg">
+				<p class="text-center text-neutral-500 dark:text-neutral-400">No repositories found</p>
+			</div>
+		} else {
+			for _, repo := range repositories {
+				<a href={ templ.SafeURL("/images/" + repo) } class="block p-4 bg-white dark:bg-neutral-800 rounded-lg shadow hover:shadow-md transition-shadow">
+					<div class="flex items-center justify-between">
+						<h3 class="text-lg font-medium truncate">{ repo }</h3>
+						<span class="text-neutral-500 dark:text-neutral-400">
+							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
+							</svg>
+						</span>
+					</div>
+				</a>
+			}
+		}
+	</div>
+}

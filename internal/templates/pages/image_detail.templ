@@ -1,0 +1,87 @@
+package pages
+
+import "bakashi/dokka/internal/api"
+
+templ ImageDetail(image *api.ImageInfo, theme string) {
+	<div class="space-y-6">
+		<header class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+			<div>
+				<div class="flex items-center">
+					<a href="/images" class="text-blue-600 dark:text-blue-400 hover:underline mr-2">Images</a>
+					<span class="text-neutral-500 dark:text-neutral-400">/</span>
+				</div>
+				<h1 class="text-2xl font-bold">{ image.Name }</h1>
+			</div>
+			<div>
+				<button
+					hx-get={ "/htmx/images/" + image.Name + "/tags" }
+					hx-target="#tags-container"
+					hx-swap="innerHTML"
+					class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+				>
+					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-2">
+						<path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"></path>
+					</svg>
+					Refresh
+				</button>
+			</div>
+		</header>
+		<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+			<div class="md:col-span-2">
+				<div class="bg-white dark:bg-neutral-800 rounded-lg shadow">
+					<div class="px-6 py-4 border-b border-neutral-200 dark:border-neutral-700">
+						<h2 class="text-lg font-medium">Tags</h2>
+					</div>
+					<div class="p-6">
+						<div id="tags-container">
+							if len(image.Tags) == 0 {
+								<div class="p-6 bg-neutral-100 dark:bg-neutral-800 rounded-lg">
+									<p class="text-center text-neutral-500 dark:text-neutral-400">No tags found</p>
+								</div>
+							} else {
+								<div
+									hx-get={ "/htmx/images/" + image.Name + "/tags" }
+									hx-trigger="load"
+									hx-swap="outerHTML"
+								>
+									<div class="animate-pulse space-y-4">
+										<div class="h-10 bg-neutral-100 dark:bg-neutral-700 rounded"></div>
+										<div class="h-10 bg-neutral-100 dark:bg-neutral-700 rounded"></div>
+										<div class="h-10 bg-neutral-100 dark:bg-neutral-700 rounded"></div>
+									</div>
+								</div>
+							}
+						</div>
+					</div>
+				</div>
+			</div>
+			<div>
+				<div class="bg-white dark:bg-neutral-800 rounded-lg shadow">
+					<div class="px-6 py-4 border-b border-neutral-200 dark:border-neutral-700">
+						<h2 class="text-lg font-medium">Image Information</h2>
+					</div>
+					<div class="p-6 space-y-4">
+						<div>
+							<p class="text-sm text-neutral-500 dark:text-neutral-400">Repository</p>
+							<p class="font-medium">{ image.Name }</p>
+						</div>
+						<div>
+							<p class="text-sm text-neutral-500 dark:text-neutral-400">Tags Count</p>
+							<p class="font-medium">{ len(image.Tags) }</p>
+						</div>
+						if image.LatestTag.Name != "" {
+							<div>
+								<p class="text-sm text-neutral-500 dark:text-neutral-400">Latest Tag</p>
+								<p class="font-medium">{ image.LatestTag.Name }</p>
+							</div>
+							<div>
+								<p class="text-sm text-neutral-500 dark:text-neutral-400">Size</p>
+								<p class="font-medium">{ image.LatestTag.FormatSize() }</p>
+							</div>
+						}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+}

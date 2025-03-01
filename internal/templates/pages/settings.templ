@@ -1,0 +1,92 @@
+package pages
+
+import "bakashi/dokka/internal/config"
+
+templ Settings(cfg *config.Config, theme string) {
+	<div class="space-y-6">
+		<header>
+			<h1 class="text-2xl font-bold">Settings</h1>
+		</header>
+		<div class="bg-white dark:bg-neutral-800 rounded-lg shadow">
+			<div class="px-6 py-4 border-b border-neutral-200 dark:border-neutral-700">
+				<h2 class="text-lg font-medium">Registry Configuration</h2>
+			</div>
+			<div class="p-6">
+				<form id="settings-form" action="/settings" method="POST" class="space-y-6">
+					<div class="grid grid-cols-1 gap-6">
+						<div>
+							<label for="registry_url" class="block text-sm font-medium text-neutral-700 dark:text-neutral-300">Registry URL</label>
+							<input
+								type="text"
+								name="registry_url"
+								id="registry_url"
+								value={ cfg.RegistryURL }
+								required
+								class="mt-1 block w-full border-neutral-300 dark:border-neutral-700 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm bg-white dark:bg-neutral-900"
+								placeholder="https://registry.example.com"
+							/>
+							<p class="mt-1 text-sm text-neutral-500 dark:text-neutral-400">The URL of the Docker registry (e.g., https://registry.example.com)</p>
+						</div>
+						<div>
+							<label for="registry_username" class="block text-sm font-medium text-neutral-700 dark:text-neutral-300">Registry Username</label>
+							<input
+								type="text"
+								name="registry_username"
+								id="registry_username"
+								value={ cfg.RegistryUsername }
+								class="mt-1 block w-full border-neutral-300 dark:border-neutral-700 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm bg-white dark:bg-neutral-900"
+								placeholder="username"
+							/>
+							<p class="mt-1 text-sm text-neutral-500 dark:text-neutral-400">Optional: Username for registry authentication</p>
+						</div>
+						<div>
+							<label for="registry_password" class="block text-sm font-medium text-neutral-700 dark:text-neutral-300">Registry Password</label>
+							<input
+								type="password"
+								name="registry_password"
+								id="registry_password"
+								value={ cfg.RegistryPassword }
+								class="mt-1 block w-full border-neutral-300 dark:border-neutral-700 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm bg-white dark:bg-neutral-900"
+								placeholder="password"
+							/>
+							<p class="mt-1 text-sm text-neutral-500 dark:text-neutral-400">Optional: Password for registry authentication</p>
+						</div>
+						<div>
+							<div class="flex items-center">
+								<input
+									type="checkbox"
+									name="registry_insecure"
+									id="registry_insecure"
+									checked?={ cfg.RegistryInsecure }
+									class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-neutral-300 rounded"
+								/>
+								<label for="registry_insecure" class="ml-2 block text-sm text-neutral-700 dark:text-neutral-300">Allow insecure connections (skip TLS verification)</label>
+							</div>
+							<p class="mt-1 text-sm text-neutral-500 dark:text-neutral-400">Enable this option for self-signed certificates</p>
+						</div>
+						<div>
+							<label for="default_theme" class="block text-sm font-medium text-neutral-700 dark:text-neutral-300">Default Theme</label>
+							<select
+								name="default_theme"
+								id="default_theme"
+								class="mt-1 block w-full border-neutral-300 dark:border-neutral-700 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm bg-white dark:bg-neutral-900"
+							>
+								<option value="light" selected?={ cfg.DefaultTheme == "light" }>Light</option>
+								<option value="dark" selected?={ cfg.DefaultTheme == "dark" }>Dark</option>
+							</select>
+							<p class="mt-1 text-sm text-neutral-500 dark:text-neutral-400">The default theme for new users</p>
+						</div>
+					</div>
+					<div class="flex justify-end">
+						<button
+							type="submit"
+							class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+						>
+							Save Settings
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+}

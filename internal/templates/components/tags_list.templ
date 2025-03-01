@@ -1,0 +1,42 @@
+package components
+
+templ TagsList(repository string, tags []string) {
+	<div class="space-y-4">
+		if len(tags) == 0 {
+			<div class="p-6 bg-neutral-100 dark:bg-neutral-800 rounded-lg">
+				<p class="text-center text-neutral-500 dark:text-neutral-400">No tags found</p>
+			</div>
+		} else {
+			<div class="bg-white dark:bg-neutral-800 rounded-lg shadow overflow-hidden">
+				<table class="min-w-full divide-y divide-neutral-200 dark:divide-neutral-700">
+					<thead class="bg-neutral-50 dark:bg-neutral-800">
+						<tr>
+							<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">Tag</th>
+							<th scope="col" class="px-6 py-3 text-right text-xs font-medium text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">Actions</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white dark:bg-neutral-800 divide-y divide-neutral-200 dark:divide-neutral-700">
+						for _, tag := range tags {
+							<tr class="hover:bg-neutral-50 dark:hover:bg-neutral-700">
+								<td class="px-6 py-4 whitespace-nowrap">
+									<a href={ templ.SafeURL("/images/" + repository + "/tags/" + tag) } class="text-blue-600 dark:text-blue-400 hover:underline">{ tag }</a>
+								</td>
+								<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+									<button
+										hx-delete={ "/images/" + repository + "/tags/" + tag }
+										hx-confirm={ "Are you sure you want to delete tag '" + tag + "'?" }
+										hx-target="closest tr"
+										hx-swap="outerHTML"
+										class="text-red-600 dark:text-red-400 hover:text-red-900 dark:hover:text-red-300"
+									>
+										Delete
+									</button>
+								</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
+		}
+	</div>
+}
