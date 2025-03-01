@@ -8,7 +8,7 @@ package layouts
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-import "bakashi/dokka/internal/templates/components"
+import "github.com/1704mori/registry.ui/internal/templates/components"
 
 func Base(theme string, contents templ.Component) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
@@ -53,7 +53,7 @@ func Base(theme string, contents templ.Component) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>Docker Registry UI</title><link href=\"/static/css/main.css\" rel=\"stylesheet\"><script src=\"https://unpkg.com/htmx.org@1.9.8\"></script><script defer src=\"https://unpkg.com/alpinejs@3.13.0/dist/cdn.min.js\"></script><script>\n\t\t\t// Initialize theme from localStorage or default\n\t\t\tdocument.addEventListener('DOMContentLoaded', function() {\n\t\t\t\tconst savedTheme = localStorage.getItem('theme') || '{ theme }';\n\t\t\t\tdocument.documentElement.className = savedTheme === 'dark' ? 'dark' : '';\n\t\t\t});\n\n\t\t\t// Theme toggle function\n\t\t\tfunction toggleTheme() {\n\t\t\t\tconst isDark = document.documentElement.classList.contains('dark');\n\t\t\t\tconst newTheme = isDark ? 'light' : 'dark';\n\t\t\t\tdocument.documentElement.className = newTheme === 'dark' ? 'dark' : '';\n\t\t\t\tlocalStorage.setItem('theme', newTheme);\n\t\t\t}\n\t\t</script></head><body class=\"bg-neutral-50 text-neutral-900 dark:bg-neutral-900 dark:text-neutral-100 min-h-screen flex flex-col\"><div class=\"flex flex-col md:flex-row min-h-screen\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>Registry.UI</title><script src=\"/static/js/tailwindcss.4.0.9.js\"></script><style type=\"text/tailwindcss\">\n\t\t\t\t@custom-variant dark (&:where(.dark, .dark *));\n\t\t\t</style><script src=\"https://unpkg.com/htmx.org@2.0.4\" integrity=\"sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+\" crossorigin=\"anonymous\"></script><script defer src=\"https://cdn.jsdelivr.net/npm/alpinejs@3.14.8/dist/cdn.min.js\"></script><script>\n            // Initialize theme from localStorage or default\n            document.addEventListener('DOMContentLoaded', function() {\n                const savedTheme = localStorage.getItem('theme') || 'system';\n                if (savedTheme === 'dark' || (savedTheme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {\n                    document.documentElement.classList.add('dark');\n                } else {\n                    document.documentElement.classList.remove('dark');\n                }\n            });\n\n            // Theme toggle function\n            function toggleTheme() {\n                const isDark = document.documentElement.classList.contains('dark');\n                const newTheme = isDark ? 'light' : 'dark';\n                document.documentElement.className = newTheme === 'dark' ? 'dark' : '';\n                localStorage.setItem('theme', newTheme);\n            }\n        </script></head><body class=\"absolute inset-0 h-full w-full bg-white bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] bg-neutral-50 text-neutral-900 dark:bg-neutral-900 dark:text-neutral-100 min-h-screen flex flex-col\"><div class=\"flex flex-col md:flex-row min-h-screen\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -69,15 +69,7 @@ func Base(theme string, contents templ.Component) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "</div></main></div><footer class=\"mt-auto py-4 text-center text-sm text-neutral-500 dark:text-neutral-400\">")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = components.Footer().Render(ctx, templ_7745c5c3_Buffer)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "</footer></body></html>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "</div></main></div></body></html>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

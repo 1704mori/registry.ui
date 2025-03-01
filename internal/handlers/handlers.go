@@ -2,16 +2,17 @@ package handlers
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"sort"
 
 	"github.com/labstack/echo/v4"
 
-	"bakashi/dokka/internal/api"
-	"bakashi/dokka/internal/config"
-	"bakashi/dokka/internal/templates/components"
-	"bakashi/dokka/internal/templates/layouts"
-	"bakashi/dokka/internal/templates/pages"
+	"github.com/1704mori/registry.ui/internal/api"
+	"github.com/1704mori/registry.ui/internal/config"
+	"github.com/1704mori/registry.ui/internal/templates/components"
+	"github.com/1704mori/registry.ui/internal/templates/layouts"
+	"github.com/1704mori/registry.ui/internal/templates/pages"
 )
 
 // Handlers struct holds the dependencies for HTTP handlers
@@ -63,7 +64,9 @@ func (h *Handlers) ListImages(c echo.Context) error {
 // GetImage renders the image detail page
 func (h *Handlers) GetImage(c echo.Context) error {
 	// Get image name from URL parameter
-	name := c.Param("name")
+	name := c.Param("*")
+	log.Println(name)
+
 	if name == "" {
 		return c.Redirect(http.StatusFound, "/images")
 	}
@@ -82,7 +85,8 @@ func (h *Handlers) GetImage(c echo.Context) error {
 // ListTags renders the tags list page
 func (h *Handlers) ListTags(c echo.Context) error {
 	// Get repository name from URL parameter
-	name := c.Param("name")
+	name := c.Param("*")
+	log.Printf("ListTags name: %s", name)
 	if name == "" {
 		return c.Redirect(http.StatusFound, "/images")
 	}
@@ -97,15 +101,15 @@ func (h *Handlers) ListTags(c echo.Context) error {
 	sort.Strings(tags)
 
 	// Render tags page
-	component := pages.Tags(name, tags, h.config.DefaultTheme)
+	component := components.TagsList(name, tags)
 	return layouts.Base(h.config.DefaultTheme, component).Render(c.Request().Context(), c.Response().Writer)
 }
 
 // GetTag renders the tag detail page
 func (h *Handlers) GetTag(c echo.Context) error {
 	// Get repository and tag names from URL parameters
-	name := c.Param("name")
 	tag := c.Param("tag")
+	name := c.Param("*")
 	if name == "" || tag == "" {
 		return c.Redirect(http.StatusFound, "/images")
 	}
@@ -124,7 +128,7 @@ func (h *Handlers) GetTag(c echo.Context) error {
 // DeleteTag handles tag deletion
 func (h *Handlers) DeleteTag(c echo.Context) error {
 	// Get repository and tag names from URL parameters
-	name := c.Param("name")
+	name := c.Param("*")
 	tag := c.Param("tag")
 	if name == "" || tag == "" {
 		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Missing parameters"})
@@ -200,7 +204,7 @@ func (h *Handlers) HtmxListImages(c echo.Context) error {
 // HtmxListTags handles HTMX request for tags list
 func (h *Handlers) HtmxListTags(c echo.Context) error {
 	// Get repository name from URL parameter
-	name := c.Param("name")
+	name := c.Param("*")
 	if name == "" {
 		return c.HTML(http.StatusBadRequest, "<div class='text-red-500'>Error: Missing repository name</div>")
 	}

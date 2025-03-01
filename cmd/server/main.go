@@ -10,8 +10,9 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 
-	"bakashi/dokka/internal/config"
-	"bakashi/dokka/internal/handlers"
+	"github.com/1704mori/registry.ui/internal/api"
+	"github.com/1704mori/registry.ui/internal/config"
+	"github.com/1704mori/registry.ui/internal/handlers"
 )
 
 func main() {
@@ -48,16 +49,17 @@ func main() {
 	// Routes
 	e.GET("/", h.Dashboard)
 	e.GET("/images", h.ListImages)
-	e.GET("/images/:name", h.GetImage)
-	e.GET("/images/:name/tags", h.ListTags)
-	e.GET("/images/:name/tags/:tag", h.GetTag)
-	e.DELETE("/images/:name/tags/:tag", h.DeleteTag)
+	// Register a single catch-all route for GET and DELETE requests.
+	e.GET("/images/*", h.GetImage)
+	e.GET("/image-tags/*", h.HtmxListTags)
+	e.GET("/image-tag/:tag/*", h.GetTag)
+	e.DELETE("/image-tag/:tag/*", h.DeleteTag)
 	e.GET("/settings", h.Settings)
 	e.POST("/settings", h.UpdateSettings)
 
 	// HTMX specific endpoints
 	e.GET("/htmx/images", h.HtmxListImages)
-	e.GET("/htmx/images/:name/tags", h.HtmxListTags)
+	e.GET("/htmx/image-tags/*", h.HtmxListTags)
 	e.GET("/htmx/theme-toggle", h.HtmxThemeToggle)
 
 	// Start server

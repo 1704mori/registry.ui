@@ -8,7 +8,8 @@ package pages
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-import "bakashi/dokka/internal/api"
+import "github.com/1704mori/registry.ui/internal/api"
+import "strconv"
 
 func ImageDetail(image *api.ImageInfo, theme string) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
@@ -38,7 +39,7 @@ func ImageDetail(image *api.ImageInfo, theme string) templ.Component {
 		var templ_7745c5c3_Var2 string
 		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(image.Name)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/pages/image_detail.templ`, Line: 13, Col: 47}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/pages/image_detail.templ`, Line: 14, Col: 47}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 		if templ_7745c5c3_Err != nil {
@@ -49,9 +50,9 @@ func ImageDetail(image *api.ImageInfo, theme string) templ.Component {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var3 string
-		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs("/htmx/images/" + image.Name + "/tags")
+		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs("/htmx/image-tags/" + image.Name)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/pages/image_detail.templ`, Line: 17, Col: 52}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/pages/image_detail.templ`, Line: 18, Col: 46}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 		if templ_7745c5c3_Err != nil {
@@ -72,9 +73,9 @@ func ImageDetail(image *api.ImageInfo, theme string) templ.Component {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var4 string
-			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs("/htmx/images/" + image.Name + "/tags")
+			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs("/htmx/image-tags/" + image.Name)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/pages/image_detail.templ`, Line: 43, Col: 56}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/pages/image_detail.templ`, Line: 44, Col: 50}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 			if templ_7745c5c3_Err != nil {
@@ -92,7 +93,7 @@ func ImageDetail(image *api.ImageInfo, theme string) templ.Component {
 		var templ_7745c5c3_Var5 string
 		templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(image.Name)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/pages/image_detail.templ`, Line: 66, Col: 42}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/pages/image_detail.templ`, Line: 67, Col: 42}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 		if templ_7745c5c3_Err != nil {
@@ -103,9 +104,9 @@ func ImageDetail(image *api.ImageInfo, theme string) templ.Component {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var6 string
-		templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(len(image.Tags))
+		templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(strconv.Itoa(len(image.Tags)))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/pages/image_detail.templ`, Line: 70, Col: 47}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/pages/image_detail.templ`, Line: 71, Col: 61}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 		if templ_7745c5c3_Err != nil {
@@ -123,7 +124,7 @@ func ImageDetail(image *api.ImageInfo, theme string) templ.Component {
 			var templ_7745c5c3_Var7 string
 			templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(image.LatestTag.Name)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/pages/image_detail.templ`, Line: 75, Col: 53}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/pages/image_detail.templ`, Line: 76, Col: 53}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
 			if templ_7745c5c3_Err != nil {
@@ -136,7 +137,7 @@ func ImageDetail(image *api.ImageInfo, theme string) templ.Component {
 			var templ_7745c5c3_Var8 string
 			templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(image.LatestTag.FormatSize())
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/pages/image_detail.templ`, Line: 79, Col: 61}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/pages/image_detail.templ`, Line: 80, Col: 61}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
 			if templ_7745c5c3_Err != nil {

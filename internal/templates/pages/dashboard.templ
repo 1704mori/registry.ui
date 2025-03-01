@@ -1,5 +1,7 @@
 package pages
 
+import "strconv"
+
 templ Dashboard(repositories []string, theme string) {
 	<div class="space-y-6">
 		<header>
@@ -9,7 +11,7 @@ templ Dashboard(repositories []string, theme string) {
 			<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
 				<div class="bg-neutral-100 dark:bg-neutral-700 rounded-lg p-4">
 					<h3 class="text-lg font-medium mb-2">Total Repositories</h3>
-					<p class="text-3xl font-bold">{ len(repositories) }</p>
+					<p class="text-3xl font-bold">{ strconv.Itoa(len(repositories)) }</p>
 				</div>
 				<div class="bg-neutral-100 dark:bg-neutral-700 rounded-lg p-4">
 					<h3 class="text-lg font-medium mb-2">Registry Status</h3>

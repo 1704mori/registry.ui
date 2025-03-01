@@ -1,4 +1,4 @@
-module bakashi/dokka
+module github.com/1704mori/registry.ui
 
 go 1.24.0
 

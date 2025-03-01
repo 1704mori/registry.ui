@@ -1,0 +1,27 @@
+{
+  "name": "dokka",
+  "version": "1.0.0",
+  "author": "",
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.0.9",
+    "concurrently": "^9.1.2",
+    "tailwindcss": "^4.0.9"
+  },
+  "description": "Docker Registry UI built with the GOTH stack",
+  "keywords": [
+    "docker",
+    "registry",
+    "ui",
+    "go",
+    "tailwindcss",
+    "htmx",
+    "templ",
+    "alpine.js"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "build:css": "bunx --bun @tailwindcss/cli -i ./static/css/main.css -o ./static/css/output.css --minify",
+    "watch:css": "bunx --bun @tailwindcss/cli -i ./static/css/main.css -o ./static/css/output.css --watch",
+    "dev": "concurrently \"templ generate\" \"bun --version\" \"go run ./cmd/server/main.go\""
+  }
+}

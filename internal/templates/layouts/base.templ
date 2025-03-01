@@ -1,52 +1,62 @@
 package layouts
 
-import "bakashi/dokka/internal/templates/components"
+import "github.com/1704mori/registry.ui/internal/templates/components"
 
 templ Base(theme string, contents templ.Component) {
-	<!DOCTYPE html>
-	<html lang="en" class={ themeClass(theme) }>
-		<head>
-			<meta charset="UTF-8"/>
-			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-			<title>Docker Registry UI</title>
-			<link href="/static/css/main.css" rel="stylesheet"/>
-			<script src="https://unpkg.com/htmx.org@1.9.8"></script>
-			<script defer src="https://unpkg.com/alpinejs@3.13.0/dist/cdn.min.js"></script>
-			<script>
-			// Initialize theme from localStorage or default
-			document.addEventListener('DOMContentLoaded', function() {
-				const savedTheme = localStorage.getItem('theme') || '{ theme }';
-				document.documentElement.className = savedTheme === 'dark' ? 'dark' : '';
-			});
+    <!DOCTYPE html>
+    <html lang="en" class={ themeClass(theme) }>
+        <head>
+            <meta charset="UTF-8"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+            <title>Registry.UI</title>
+            // <link href="/static/css/main.css" rel="stylesheet"/>
 
-			// Theme toggle function
-			function toggleTheme() {
-				const isDark = document.documentElement.classList.contains('dark');
-				const newTheme = isDark ? 'light' : 'dark';
-				document.documentElement.className = newTheme === 'dark' ? 'dark' : '';
-				localStorage.setItem('theme', newTheme);
-			}
-		</script>
-		</head>
-		<body class="bg-neutral-50 text-neutral-900 dark:bg-neutral-900 dark:text-neutral-100 min-h-screen flex flex-col">
-			<div class="flex flex-col md:flex-row min-h-screen">
+            <script src="/static/js/tailwindcss.4.0.9.js"></script>
+			<style type="text/tailwindcss">
+				@custom-variant dark (&:where(.dark, .dark *));
+			</style>
+			
+            <script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
+            <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.8/dist/cdn.min.js"></script>
+            <script>
+            // Initialize theme from localStorage or default
+            document.addEventListener('DOMContentLoaded', function() {
+                const savedTheme = localStorage.getItem('theme') || 'system';
+                if (savedTheme === 'dark' || (savedTheme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            });
+
+            // Theme toggle function
+            function toggleTheme() {
+                const isDark = document.documentElement.classList.contains('dark');
+                const newTheme = isDark ? 'light' : 'dark';
+                document.documentElement.className = newTheme === 'dark' ? 'dark' : '';
+                localStorage.setItem('theme', newTheme);
+            }
+        </script>
+        </head>
+        <body class="absolute inset-0 h-full w-full bg-white bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] bg-neutral-50 text-neutral-900 dark:bg-neutral-900 dark:text-neutral-100 min-h-screen flex flex-col">
+            <div class="flex flex-col md:flex-row min-h-screen">
 				@components.Sidebar(theme)
-				<main class="flex-1 p-6">
-					<div class="container mx-auto">
-						@contents
-					</div>
-				</main>
-			</div>
-			<footer class="mt-auto py-4 text-center text-sm text-neutral-500 dark:text-neutral-400">
-				@components.Footer()
-			</footer>
-		</body>
-	</html>
+                <main class="flex-1 p-6">
+                    <div class="container mx-auto">
+                        @contents
+                    </div>
+                </main>
+            </div>
+            // <footer class="mt-auto py-4 text-center text-sm text-neutral-500 dark:text-neutral-400">
+                // @components.Footer()
+            // </footer>
+        </body>
+    </html>
 }
 
 func themeClass(theme string) string {
-	if theme == "dark" {
-		return "dark"
-	}
-	return ""
+    if theme == "dark" {
+        return "dark"
+    }
+    return ""
 }

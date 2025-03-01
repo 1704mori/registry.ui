@@ -8,7 +8,7 @@ package pages
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-import "bakashi/dokka/internal/templates/components"
+import "github.com/1704mori/registry.ui/internal/templates/components"
 
 func Images(repositories []string, theme string) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {

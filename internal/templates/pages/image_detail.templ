@@ -1,6 +1,7 @@
 package pages
 
-import "bakashi/dokka/internal/api"
+import "github.com/1704mori/registry.ui/internal/api"
+import "strconv"
 
 templ ImageDetail(image *api.ImageInfo, theme string) {
 	<div class="space-y-6">
@@ -14,7 +15,7 @@ templ ImageDetail(image *api.ImageInfo, theme string) {
 			</div>
 			<div>
 				<button
-					hx-get={ "/htmx/images/" + image.Name + "/tags" }
+					hx-get={ "/htmx/image-tags/" + image.Name }
 					hx-target="#tags-container"
 					hx-swap="innerHTML"
 					class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
@@ -40,7 +41,7 @@ templ ImageDetail(image *api.ImageInfo, theme string) {
 								</div>
 							} else {
 								<div
-									hx-get={ "/htmx/images/" + image.Name + "/tags" }
+									hx-get={ "/htmx/image-tags/" + image.Name }
 									hx-trigger="load"
 									hx-swap="outerHTML"
 								>
@@ -67,7 +68,7 @@ templ ImageDetail(image *api.ImageInfo, theme string) {
 						</div>
 						<div>
 							<p class="text-sm text-neutral-500 dark:text-neutral-400">Tags Count</p>
-							<p class="font-medium">{ len(image.Tags) }</p>
+							<p class="font-medium">{ strconv.Itoa(len(image.Tags)) }</p>
 						</div>
 						if image.LatestTag.Name != "" {
 							<div>

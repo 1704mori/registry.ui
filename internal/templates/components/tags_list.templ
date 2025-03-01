@@ -19,11 +19,11 @@ templ TagsList(repository string, tags []string) {
 						for _, tag := range tags {
 							<tr class="hover:bg-neutral-50 dark:hover:bg-neutral-700">
 								<td class="px-6 py-4 whitespace-nowrap">
-									<a href={ templ.SafeURL("/images/" + repository + "/tags/" + tag) } class="text-blue-600 dark:text-blue-400 hover:underline">{ tag }</a>
+									<a href={ templ.SafeURL("/image-tag/" + tag + "/" + repository) } class="text-blue-600 dark:text-blue-400 hover:underline">{ tag }</a>
 								</td>
 								<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
 									<button
-										hx-delete={ "/images/" + repository + "/tags/" + tag }
+										hx-delete={ "/image-tag/" + tag + "/" + repository }
 										hx-confirm={ "Are you sure you want to delete tag '" + tag + "'?" }
 										hx-target="closest tr"
 										hx-swap="outerHTML"
