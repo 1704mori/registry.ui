@@ -22,16 +22,16 @@ else
     MODE="service"
 fi
 
-read -p "Enter Docker Registry URL: " DOCKER_REGISTRY_URL
-read -p "Enter Docker Registry Username: " DOCKER_REGISTRY_USERNAME
-read -sp "Enter Docker Registry Password: " DOCKER_REGISTRY_PASSWORD
+read -p "Enter Docker Registry URL: " REGISTRY_URL
+read -p "Enter Docker Registry Username: " REGISTRY_USERNAME
+read -sp "Enter Docker Registry Password: " REGISTRY_PASSWORD
 echo
 
 ENV_FILE=$(pwd)/.env.registry_ui
 
-echo "DOCKER_REGISTRY_URL=$DOCKER_REGISTRY_URL
-DOCKER_REGISTRY_USERNAME=$DOCKER_REGISTRY_USERNAME
-DOCKER_REGISTRY_PASSWORD=$DOCKER_REGISTRY_PASSWORD" > "$ENV_FILE"
+echo "REGISTRY_URL=$REGISTRY_URL
+REGISTRY_USERNAME=$REGISTRY_USERNAME
+REGISTRY_PASSWORD=$REGISTRY_PASSWORD" > "$ENV_FILE"
 
 echo -e "${GREEN}Environment file created at: $ENV_FILE${NC}"
 
