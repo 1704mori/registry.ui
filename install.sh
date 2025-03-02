@@ -36,6 +36,13 @@ REGISTRY_PASSWORD=$REGISTRY_PASSWORD" > "$ENV_FILE"
 echo -e "${GREEN}Environment file created at: $ENV_FILE${NC}"
 
 if [ "$MODE" == "docker" ]; then
+    CONTAINER_ID=$(docker ps -aq -f name=^/registry_ui$)
+    if [ -n "$CONTAINER_ID" ]; then
+        echo "Container 'registry_ui' already exists. Stopping and removing it..."
+        docker stop registry_ui
+        docker rm registry_ui
+    fi
+
     docker build -t registry_ui .
     docker run --name registry_ui -d -p 8080:8080 --env-file "$ENV_FILE" registry_ui
     echo -e "${GREEN}Docker container built and started.${NC}"
