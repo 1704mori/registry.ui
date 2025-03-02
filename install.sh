@@ -1,5 +1,18 @@
 #!/bin/bash
 
+REPO_URL="https://github.com/yourusername/registry-ui.git"
+REPO_DIR="/tmp/registry.ui"
+
+if [ ! -d "$REPO_DIR" ]; then
+    echo "Cloning repository from $REPO_URL..."
+    git clone "$REPO_URL" "$REPO_DIR" || { echo "Failed to clone repository."; exit 1; }
+else
+    echo "Repository already exists. Pulling latest changes..."
+    cd "$REPO_DIR" && git pull && cd ..
+fi
+
+cd "$REPO_DIR" || exit 1
+
 GREEN='\033[0;32m'
 NC='\033[0m' # No Color
 
@@ -24,7 +37,7 @@ echo -e "${GREEN}Environment file created at: $ENV_FILE${NC}"
 
 if [ "$MODE" == "docker" ]; then
     docker build -t registry_ui .
-    docker run -d -p 8080:8080 --env-file "$ENV_FILE" registry_ui
+    docker run --name registry_ui -d -p 8080:8080 --env-file "$ENV_FILE" registry_ui
     echo -e "${GREEN}Docker container built and started.${NC}"
 else
     go build -o /usr/local/bin/registry-ui cmd/server/main.go
