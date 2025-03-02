@@ -33,13 +33,17 @@ air .
 1. Run as Service
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/1704mori/registry.ui/refs/heads/master/install.sh | sudo bash
+curl -fsSL https://raw.githubusercontent.com/1704mori/registry.ui/refs/heads/master/install.sh -o install.sh
+chmod +x install.sh
+sudo ./install.sh
 ```
 
 2. Run as Docker
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/1704mori/registry.ui/refs/heads/master/install.sh | sudo bash -s -- docker
+curl -fsSL https://raw.githubusercontent.com/1704mori/registry.ui/refs/heads/master/install.sh -o install.sh
+chmod +x install.sh
+sudo ./install.sh docker
 ```
 
 The server will start on `http://localhost:8080`.

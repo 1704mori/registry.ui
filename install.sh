@@ -22,9 +22,9 @@ else
     MODE="service"
 fi
 
-read -p "Enter Docker Registry URL: " DOCKER_REGISTRY_URL < /dev/tty
-read -p "Enter Docker Registry Username: " DOCKER_REGISTRY_USERNAME < /dev/tty
-read -sp "Enter Docker Registry Password: " DOCKER_REGISTRY_PASSWORD < /dev/tty
+read -p "Enter Docker Registry URL: " DOCKER_REGISTRY_URL
+read -p "Enter Docker Registry Username: " DOCKER_REGISTRY_USERNAME
+read -sp "Enter Docker Registry Password: " DOCKER_REGISTRY_PASSWORD
 echo
 
 ENV_FILE=$(pwd)/.env.registry_ui
