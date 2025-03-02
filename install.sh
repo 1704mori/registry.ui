@@ -1,6 +1,6 @@
 #!/bin/bash
 
-REPO_URL="https://github.com/yourusername/registry-ui.git"
+REPO_URL="https://github.com/1704mori/registry.ui.git"
 REPO_DIR="/tmp/registry.ui"
 
 if [ ! -d "$REPO_DIR" ]; then
