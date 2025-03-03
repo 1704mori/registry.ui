@@ -40,6 +40,16 @@ type ManifestV2 struct {
 	} `json:"layers"`
 }
 
+// OCIImageIndex represents an OCI image index
+type OCIImageIndex struct {
+	SchemaVersion int `json:"schemaVersion"`
+	Manifests     []struct {
+		MediaType string `json:"mediaType"`
+		Digest    string `json:"digest"`
+		Size      int64  `json:"size"`
+	} `json:"manifests"`
+}
+
 // FormatSize returns a human-readable string for the size
 func (t TagInfo) FormatSize() string {
 	const (
