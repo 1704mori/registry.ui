@@ -76,8 +76,9 @@ func (c *Client) newRequest(method, path string) (*http.Request, error) {
 		req.Header.Set("Authorization", c.authHeader)
 	}
 
-	// Set Accept header for Docker Registry API
-	req.Header.Set("Accept", "application/vnd.docker.distribution.manifest.v2+json")
+	if strings.Contains(path, "/manifests/") {
+		req.Header.Set("Accept", "application/vnd.docker.distribution.manifest.v2+json")
+	}
 
 	return req, nil
 }
